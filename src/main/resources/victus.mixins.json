@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.glisco.victus.mixin",
+  "plugin": "com.glisco.victus.mixin.VictusMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AreaEffectCloudEntityMixin",
+    "CreativeInventoryScreenAccessor",
+    "EvokerEntityMixin",
+    "ExperienceOrbEntityMixin",
+    "GoalSelectorAccessor",
+    "HardcoreRevivalManagerMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "PotionItemMixin",
+    "SpellcastingIllagerEntityAccessor",
+    "VexEntityMixin"
+  ],
+  "client": [
+    "client.InGameHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

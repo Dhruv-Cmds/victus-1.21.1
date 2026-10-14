@@ -24,7 +24,7 @@ public class PotionAspect extends HeartAspect implements OverlaySpriteProvider {
 
     public PotionAspect(PlayerEntity player) {
         super(player, TYPE);
-        this.potion = Potions.EMPTY;
+        this.potion = Potions.WATER;
     }
 
     public RegistryEntry<Potion> getPotion() {
@@ -32,7 +32,7 @@ public class PotionAspect extends HeartAspect implements OverlaySpriteProvider {
     }
 
     public boolean isEmpty() {
-        return potion.matches(Potions.EMPTY);
+        return potion.matches(Potions.WATER);
     }
 
     public void setPotion(RegistryEntry<Potion> potion) {
@@ -52,7 +52,7 @@ public class PotionAspect extends HeartAspect implements OverlaySpriteProvider {
             }
         }
 
-        this.setPotion(Potions.EMPTY);
+        this.setPotion(Potions.WATER);
         return false;
     }
 
@@ -60,8 +60,8 @@ public class PotionAspect extends HeartAspect implements OverlaySpriteProvider {
     protected void readCustomData(NbtCompound nbt) {
         final var id = Identifier.tryParse(nbt.getString("Potion"));
         this.potion = id == null
-                ? Potions.EMPTY
-                : Registries.POTION.getEntry(id).<RegistryEntry<Potion>>map(entry -> entry).orElse(Potions.EMPTY);
+                ? Potions.WATER
+                : Registries.POTION.getEntry(id).<RegistryEntry<Potion>>map(entry -> entry).orElse(Potions.WATER);
     }
 
     @Override

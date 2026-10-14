@@ -32,7 +32,7 @@ public class PotionItemMixin {
         if (contents.potion().isEmpty()) return;
 
         final var potion = contents.potion().get();
-        if (potion.matches(Potions.EMPTY) || potion.value().getEffects().isEmpty()) return;
+        if (potion.matches(Potions.WATER) || potion.value().getEffects().isEmpty()) return;
 
         final var potionAspect = findFirstEmptyPotionAspect(Victus.ASPECTS.get(player));
         if (potionAspect == null) return;

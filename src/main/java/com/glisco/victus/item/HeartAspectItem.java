@@ -5,7 +5,7 @@ import com.glisco.victus.hearts.HeartAspect;
 import com.glisco.victus.network.VictusParticleEvents;
 import io.wispforest.owo.itemgroup.OwoItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;

@@ -4,7 +4,7 @@ import com.glisco.victus.Victus;
 import com.glisco.victus.network.VictusParticleEvents;
 import io.wispforest.owo.itemgroup.OwoItemSettings;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;

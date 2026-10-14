@@ -1,4 +1,3 @@
-```java
 package com.glisco.victus.mixin.client;
 
 import com.glisco.victus.Victus;
@@ -295,4 +294,3 @@ public abstract class InGameHudMixin {
         return ((rgb >> shift) & 0xFF) / 255f;
     }
 }
-```

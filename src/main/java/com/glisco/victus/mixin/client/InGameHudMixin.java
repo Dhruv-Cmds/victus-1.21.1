@@ -1,22 +1,15 @@
+```java
 package com.glisco.victus.mixin.client;
 
 import com.glisco.victus.Victus;
 import com.glisco.victus.hearts.HeartAspect;
 import com.glisco.victus.hearts.HeartAspectComponent;
 import com.glisco.victus.hearts.OverlaySpriteProvider;
-import com.glisco.victus.mixin.CreativeInventoryScreenAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,28 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
-
-    @Shadow
-    @Final
-    private MinecraftClient client;
-
-    @Shadow
-    private int renderHealthValue;
-
-    @Shadow
-    protected abstract void renderHealthBar(
-            DrawContext context,
-            PlayerEntity player,
-            int x,
-            int y,
-            int lines,
-            int regeneratingHeartIndex,
-            float maxHealth,
-            int lastHealth,
-            int health,
-            int absorption,
-            boolean blinking
-    );
 
     @Unique
     private int heartX, heartY, heartIndex;
@@ -186,6 +157,7 @@ public abstract class InGameHudMixin {
         if (aspect == null) return;
 
         RenderSystem.setShaderTexture(0, aspect.getAtlas());
+
         renderAspect(
                 context,
                 heartX,
@@ -217,56 +189,6 @@ public abstract class InGameHudMixin {
         }
     }
 
-    @Inject(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;hasStatusBars()Z"
-            )
-    )
-    private void renderHeartsInVictusTab(
-            DrawContext context,
-            RenderTickCounter tickCounter,
-            CallbackInfo ci
-    ) {
-        if (!(client.currentScreen instanceof CreativeInventoryScreen)) return;
-        if (CreativeInventoryScreenAccessor.owo$getSelectedTab() != Victus.VICTUS_GROUP) return;
-
-        final var player = client.player;
-        if (player == null) return;
-
-        int healthBarX = context.getScaledWindowWidth() / 2 - 91;
-        int healthBarY = context.getScaledWindowHeight() - 35;
-
-        int playerHealth = MathHelper.ceil(player.getHealth());
-
-        float renderMaxHealth = (float) Math.max(
-                player.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH),
-                Math.max(this.renderHealthValue, playerHealth)
-        );
-
-        int absorption = MathHelper.ceil(player.getAbsorptionAmount());
-
-        int r = Math.max(
-                10 - (MathHelper.ceil((renderMaxHealth + absorption) / 2.0F / 10.0F) - 2),
-                3
-        );
-
-        this.renderHealthBar(
-                context,
-                player,
-                healthBarX,
-                healthBarY,
-                r,
-                -1,
-                renderMaxHealth,
-                playerHealth,
-                this.renderHealthValue,
-                absorption,
-                false
-        );
-    }
-
     private static void renderAspect(
             DrawContext context,
             int x,
@@ -294,3 +216,4 @@ public abstract class InGameHudMixin {
         return ((rgb >> shift) & 0xFF) / 255f;
     }
 }
+```

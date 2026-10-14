@@ -16,7 +16,9 @@
   "SpellcastingIllagerEntityAccessor",
   "VexEntityMixin"
 ],
-  "client": [],
+ "client": [
+  "client.InGameHudMixin"
+],
   "injectors": {
     "defaultRequire": 1
   }
